@@ -53,4 +53,28 @@ class Madmin extends CI_Model {
         $this->db->delete('event');
     }
 
+    // Peserta
+    public function get_peserta($id=null){
+        $this->db->select('p.id_peserta, p.id_event, e.nama_event AS event, p.nama_peserta, p.no_hp, p.nama_burung');
+        $this->db->from('peserta AS p');
+        if($id!=null){
+            $this->db->where('id_peserta', $id);
+        }
+        $this->db->join('event AS e', 'e.id_event=p.id_event');
+        return $this->db->get();
+    }
+
+    public function store_pes($data){
+        $this->db->insert('peserta', $data);
+    }
+
+    public function update_pes($data, $id){
+        $this->db->update('peserta', $data, ['id_peserta'=>$id]);
+    }
+
+    public function del_pes($id){
+        $this->db->where('id_peserta', $id);
+        $this->db->delete('peserta');
+    }
+
 }

@@ -141,5 +141,69 @@ class Admin extends CI_Controller {
         $this->Madmin->del_e($id);
         redirect('admin/event');
     }
+
+    // Peserta
+    public function peserta(){
+        $peserta = $this->Madmin->get_peserta()->result();
+        $data = [
+            'title' => 'Peserta',
+            'peserta' => $peserta
+        ];
+        $this->load->view('admin/_header', $data);
+        $this->load->view('admin/peserta');
+        $this->load->view('admin/_footer');
+    }
+
+    public function peserta_create(){
+        $event = $this->Madmin->get_event()->result();
+        $data = [
+            'title' => 'Tambah Peserta',
+            'event' => $event
+        ];
+        $this->load->view('admin/_header', $data);
+        $this->load->view('admin/add_peserta');
+        $this->load->view('admin/_footer');
+    }
+
+    public function peserta_store(){
+        $param = [
+            'id_event' => $this->input->post('id_event'),
+            'nama_peserta' => $this->input->post('nama_peserta'),
+            'no_hp' => $this->input->post('no_hp'),
+            'nama_burung' => $this->input->post('nama_burung')
+        ];
+        $this->Madmin->store_pes($param);
+        redirect('admin/peserta');
+    }
+
+    public function edit_peserta($id){
+        $peserta = $this->Madmin->get_peserta($id)->row();
+        $event = $this->Madmin->get_event()->result();
+        $data = [
+            'title' => 'Peserta',
+            'peserta' => $peserta,
+            'event' => $event
+        ];
+        $this->load->view('admin/_header', $data);
+        $this->load->view('admin/edit_peserta');
+        $this->load->view('admin/_footer');
+    }
+
+    public function peserta_update(){
+        $param = [
+            'id_event' => $this->input->post('id_event'),
+            'nama_peserta' => $this->input->post('nama_peserta'),
+            'no_hp' => $this->input->post('no_hp'),
+            'nama_burung' => $this->input->post('nama_burung')
+        ];
+        $id = $this->input->post('id');
+        $this->Madmin->update_pes($param, $id);
+        redirect('admin/peserta');
+    }
+
+    public function del_peserta($id){
+        $this->Madmin->del_pes($id);
+        redirect('admin/peserta');
+    }
     
 }
