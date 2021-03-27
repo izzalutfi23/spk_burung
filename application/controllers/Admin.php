@@ -205,5 +205,42 @@ class Admin extends CI_Controller {
         $this->Madmin->del_pes($id);
         redirect('admin/peserta');
     }
+
+    // User
+    public function user(){
+        $user = $this->Madmin->get_user()->result();
+        $data = [
+            'title' => 'User',
+            'user' => $user
+        ];
+        $this->load->view('admin/_header', $data);
+        $this->load->view('admin/user');
+        $this->load->view('admin/_footer');
+    }
+
+    public function user_create(){
+        $data = [
+            'title' => 'Tambah User'
+        ];
+        $this->load->view('admin/_header', $data);
+        $this->load->view('admin/add_user');
+        $this->load->view('admin/_footer');
+    }
+
+    public function user_store(){
+        $param = [
+            'nama_user' => $this->input->post('nama_user'),
+            'username' => $this->input->post('username'),
+            'password' => md5($this->input->post('password')),
+            'level' => $this->input->post('level')
+        ];
+        $this->Madmin->store_u($param);
+        redirect('admin/user');
+    }
+
+    public function del_user($id){
+        $this->Madmin->del_u($id);
+        redirect('admin/user');
+    }
     
 }

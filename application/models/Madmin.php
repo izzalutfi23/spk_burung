@@ -77,4 +77,18 @@ class Madmin extends CI_Model {
         $this->db->delete('peserta');
     }
 
+    // User
+    public function get_user(){
+        return $this->db->get('user');
+    }
+
+    public function store_u($data){
+        $this->db->insert('user', $data);
+    }
+
+    public function del_u($id){
+        $this->db->where('id_user', $id);
+        $this->db->delete('user');
+    }
+
 }
