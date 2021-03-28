@@ -63,13 +63,14 @@ class Juri extends CI_Controller {
             'id_kriteria' => $this->input->post('id_kriteria'),
             'id_peserta' => $this->input->post('id_peserta')
         ];
+        $id = $this->input->post('id');
         $this->Madmin->store_nilai($data);
-        redirect('juri/penilaian');
+        redirect('juri/penilaian/'.$id);
     }
 
-    public function del_nilai($id){
+    public function del_nilai($id, $id_event){
         $this->Madmin->del_n($id);
-        redirect('juri/penilaian');
+        redirect('juri/penilaian/'.$id_event);
     }
 
     public function hasil(){

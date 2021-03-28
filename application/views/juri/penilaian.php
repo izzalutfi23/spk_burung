@@ -106,7 +106,7 @@
                                             <?php } ?>
                                             <td>
                                                 <a onclick="return confirm('Data akan dihapus!')"
-                                                    href="<?=base_url('juri/del_nilai/'.$data_alternatif->id_peserta)?>">
+                                                    href="<?=base_url('juri/del_nilai/'.$data_alternatif->id_peserta.'/'.$this->uri->segment(3))?>">
                                                     <button type="button" class="btn btn-danger btn-sm">Hapus</button>
                                                 </a>
                                             </td>

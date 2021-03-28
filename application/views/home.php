@@ -155,9 +155,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 				<div class="col-md-6">
 					<div class="card">
-						<div class="card-header <?=($no%2==0?'card-header-primary':'card-header-warning')?>" <h4
-							class="card-title ">Hasil Rangking</h4>
-							<p class="card-category"> Hasil urutan setelah dilakukan perhitungan</p>
+						<div class="card-header <?=($no%2==0?'card-header-primary':'card-header-success')?>">
+							<h4 class="card-title"><?=$data->nama_event?></h4>
+							<p class="card-category"><i class="material-icons">person</i> <?=$data->juri?></p>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">

@@ -66,6 +66,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">Nama Alternatif</label>
+                                            <input type="hidden" name="id" value="<?=$this->uri->segment(3)?>">
                                             <select name="id_peserta" class="form-control">
                                                 <option value="0">--Pilih--</option>
                                                 <?php
