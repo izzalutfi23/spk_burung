@@ -39,38 +39,20 @@ The above copyright notice and this permission notice shall be included in all c
         Tip 2: you can also add an image using data-image tag
     -->
 			<div class="logo"><a href="index.php" class="simple-text logo-normal">
-					Kicau Mania
+					Juri
 				</a></div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
-					<li class="nav-item active  ">
-						<a class="nav-link" href="<?=base_url('admin')?>">
-							<i class="material-icons">dashboard</i>
-							<p>Dashboard</p>
+					<li class="nav-item ">
+						<a class="nav-link" href="<?=base_url('juri')?>">
+							<i class="material-icons">repeat_one</i>
+							<p>Penilaian</p>
 						</a>
 					</li>
 					<li class="nav-item ">
-						<a class="nav-link" href="<?=base_url('admin/kriteria')?>">
-							<i class="material-icons">speaker_notes</i>
-							<p>Kriteria</p>
-						</a>
-					</li>
-					<li class="nav-item ">
-						<a class="nav-link" href="<?=base_url('admin/event')?>">
-							<i class="material-icons">subject</i>
-							<p>Event</p>
-						</a>
-					</li>
-                    <li class="nav-item ">
-						<a class="nav-link" href="<?=base_url('admin/peserta')?>">
-							<i class="material-icons">subject</i>
-							<p>Peserta</p>
-						</a>
-					</li>
-                    <li class="nav-item ">
-						<a class="nav-link" href="<?=base_url('admin/user')?>">
-							<i class="material-icons">manage_accounts</i>
-							<p>User (Admin/Juri)</p>
+						<a class="nav-link" href="<?=base_url('juri/hasil')?>">
+							<i class="material-icons">list_alt</i>
+							<p>Hasil</p>
 						</a>
 					</li>
 				</ul>
