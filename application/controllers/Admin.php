@@ -16,8 +16,17 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
+        $kriteria = count($this->Madmin->get_kriteria()->result());
+        $event = count($this->Madmin->get_event()->result());
+        $peserta = count($this->Madmin->get_peserta()->result());
+        $user = count($this->Madmin->get_user()->result());
+
 		$data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'kriteria' => $kriteria,
+            'event' => $event,
+            'peserta' => $peserta,
+            'user' => $user
         ];
         $this->load->view('admin/_header', $data);
         $this->load->view('admin/home');

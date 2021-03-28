@@ -43,31 +43,31 @@ The above copyright notice and this permission notice shall be included in all c
 				</a></div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
-					<li class="nav-item active  ">
+					<li class="nav-item <?=($this->uri->segment(2)=='admin'||$this->uri->segment(2)==''?'active':'')?>">
 						<a class="nav-link" href="<?=base_url('admin')?>">
 							<i class="material-icons">dashboard</i>
 							<p>Dashboard</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item <?=($this->uri->segment(2)=='kriteria'?'active':'')?>">
 						<a class="nav-link" href="<?=base_url('admin/kriteria')?>">
 							<i class="material-icons">speaker_notes</i>
 							<p>Kriteria</p>
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item <?=($this->uri->segment(2)=='event'?'active':'')?>">
 						<a class="nav-link" href="<?=base_url('admin/event')?>">
 							<i class="material-icons">subject</i>
 							<p>Event</p>
 						</a>
 					</li>
-                    <li class="nav-item ">
+                    <li class="nav-item <?=($this->uri->segment(2)=='peserta'?'active':'')?>">
 						<a class="nav-link" href="<?=base_url('admin/peserta')?>">
 							<i class="material-icons">subject</i>
 							<p>Peserta</p>
 						</a>
 					</li>
-                    <li class="nav-item ">
+                    <li class="nav-item <?=($this->uri->segment(2)=='user'?'active':'')?>">
 						<a class="nav-link" href="<?=base_url('admin/user')?>">
 							<i class="material-icons">manage_accounts</i>
 							<p>User (Admin/Juri)</p>
