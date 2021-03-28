@@ -111,12 +111,12 @@ The above copyright notice and this permission notice shall be included in all c
                 $no++;
             ?>
 
-            <?php
+				<?php
                 $hasil_ranks=array();
                 $peserta = $this->db->query("SELECT * FROM peserta WHERE id_event='$data->id_event'")->result();
                 foreach($peserta as $data_alternatif) {
             ?>
-                <?php
+				<?php
                 // tampilkan nilai dengan id_alternatif ...
                 $hasil_normalisasi=0;
                 $nilai = $this->db->query("SELECT * FROM nilai WHERE id_peserta='$data_alternatif->id_peserta'")->result();
@@ -127,74 +127,74 @@ The above copyright notice and this permission notice shall be included in all c
                     if ($data_kriteria->jenis=="cost") {
                         $min = $this->db->query("SELECT id_kriteria, MIN(nilai) AS min FROM nilai WHERE id_kriteria='$data_nilai->id_kriteria' GROUP BY id_kriteria")->result();
                         foreach($min as $data_min) { ?>
-                        <?php
+				<?php
                         number_format($hasil = $data_min->min/$data_nilai->nilai,2);
                         $hasil_kali = $hasil*$data_kriteria->bobot;
                         $hasil_normalisasi=$hasil_normalisasi+$hasil_kali;
                     ?>
-                <?php } ?>
+				<?php } ?>
 
-                <?php }elseif ($data_kriteria->jenis=="benefit") {
+				<?php }elseif ($data_kriteria->jenis=="benefit") {
                 $max = $this->db->query("SELECT id_kriteria, MAX(nilai) AS max FROM nilai WHERE id_kriteria='$data_nilai->id_kriteria' GROUP BY id_kriteria")->result();
                 foreach($max as $data_max) { ?>
-                        <?php
+				<?php
                         $hasil = $data_nilai->nilai/$data_max->max;
                         $hasil_kali = $hasil*$data_kriteria->bobot;
                         $hasil_normalisasi=$hasil_normalisasi+$hasil_kali;
                     ?>
-                <?php } ?>
-                <?php }
+				<?php } ?>
+				<?php }
                 ?>
-                <?php } } ?>
-                        <?php
+				<?php } } ?>
+				<?php
                         $hasil_rank['nilai'] = $hasil_normalisasi;
                         $hasil_rank['alternatif'] = $data_alternatif->nama_peserta;
                         array_push($hasil_ranks,$hasil_rank);
                         $hasil_normalisasi; ?>
-            <?php } ?>
+				<?php } ?>
 
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title ">Hasil Rangking</h4>
-                        <p class="card-category"> Hasil urutan setelah dilakukan perhitungan</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th style="text-align: center;">Ranking</th>
-                                    <th style="text-align: center;">Nama Peserta</th>
-                                    <th style="text-align: center;">Nilai Akhir</th>
-                                </thead>
-                                <tbody>
-                                    <?php
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header <?=($no%2==0?'card-header-primary':'card-header-warning')?>" <h4
+							class="card-title ">Hasil Rangking</h4>
+							<p class="card-category"> Hasil urutan setelah dilakukan perhitungan</p>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table">
+									<thead class=" text-primary">
+										<th style="text-align: center;">Ranking</th>
+										<th style="text-align: center;">Nama Peserta</th>
+										<th style="text-align: center;">Nilai Akhir</th>
+									</thead>
+									<tbody>
+										<?php
                                     $no=1;
                                     rsort($hasil_ranks);
                                     foreach ($hasil_ranks as $rank) { ?>
-                                    <tr>
-                                        <td>
-                                            <center><?php echo $no++ ?></center>
-                                        </td>
-                                        <td>
-                                            <center><?php echo $rank['alternatif']; ?></center>
-                                        </td>
-                                        <td>
-                                            <center><?php echo $rank['nilai']; ?></center>
-                                        </td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-									
-			<?php } ?>
+										<tr>
+											<td>
+												<center><?php echo $no++ ?></center>
+											</td>
+											<td>
+												<center><?php echo $rank['alternatif']; ?></center>
+											</td>
+											<td>
+												<center><?php echo $rank['nilai']; ?></center>
+											</td>
+										</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 
+				<?php } ?>
+
+			</div>
 		</div>
-	</div>
 	</div>
 
 	<!--   Core JS Files   -->
