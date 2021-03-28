@@ -11,9 +11,11 @@ class Home extends CI_Controller {
     public function index(){
         $event = $this->Madmin->get_event()->result();
         $kriteria = $this->Madmin->get_kriteria()->result();
+        $jml_kriteria = count($kriteria);
         $data = [
             'event' => $event,
-            'kriterias' => $kriteria
+            'kriterias' => $kriteria,
+            'jml_kriteria' => $jml_kriteria
         ];
         $this->load->view('home', $data);
     }

@@ -105,59 +105,96 @@ The above copyright notice and this permission notice shall be included in all c
 			</div>
 			<div class="row">
 
-            <?php
+				<?php
                 $no=1; 
                 foreach($event as $data){
                 $no++;
             ?>
-            <div class="col-lg-6 col-md-12">
-					<div class="card">
-						<div class="card-header <?=($no%2==0?'card-header-primary':'card-header-warning')?>">
-							<h4 class="card-title"><?=$data->nama_event?></h4>
-							<p class="card-category"><i class="material-icons">person</i> <?=$data->juri?></p>
-						</div>
-						<div class="card-body table-responsive">
-							<table class="table table-hover">
-								<thead class="text-warning">
-									<th>ID</th>
-									<th>Name</th>
-									<th>Salary</th>
-									<th>Country</th>
-								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Dakota Rice</td>
-										<td>$36,738</td>
-										<td>Niger</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Minerva Hooper</td>
-										<td>$23,789</td>
-										<td>Curaçao</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Sage Rodriguez</td>
-										<td>$56,142</td>
-										<td>Netherlands</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>Philip Chaney</td>
-										<td>$38,735</td>
-										<td>Korea, South</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+
+            <?php
+                $hasil_ranks=array();
+                $peserta = $this->db->query("SELECT * FROM peserta WHERE id_event='$data->id_event'")->result();
+                foreach($peserta as $data_alternatif) {
+            ?>
+                <?php
+                // tampilkan nilai dengan id_alternatif ...
+                $hasil_normalisasi=0;
+                $nilai = $this->db->query("SELECT * FROM nilai WHERE id_peserta='$data_alternatif->id_peserta'")->result();
+                foreach($nilai as $data_nilai) {
+                //
+                    $kriteria = $this->db->query("SELECT * FROM kriteria WHERE id_kriteria='$data_nilai->id_kriteria'")->result();
+                    foreach($kriteria as $data_kriteria) {
+                    if ($data_kriteria->jenis=="cost") {
+                        $min = $this->db->query("SELECT id_kriteria, MIN(nilai) AS min FROM nilai WHERE id_kriteria='$data_nilai->id_kriteria' GROUP BY id_kriteria")->result();
+                        foreach($min as $data_min) { ?>
+                        <?php
+                        number_format($hasil = $data_min->min/$data_nilai->nilai,2);
+                        $hasil_kali = $hasil*$data_kriteria->bobot;
+                        $hasil_normalisasi=$hasil_normalisasi+$hasil_kali;
+                    ?>
                 <?php } ?>
-				
-			</div>
+
+                <?php }elseif ($data_kriteria->jenis=="benefit") {
+                $max = $this->db->query("SELECT id_kriteria, MAX(nilai) AS max FROM nilai WHERE id_kriteria='$data_nilai->id_kriteria' GROUP BY id_kriteria")->result();
+                foreach($max as $data_max) { ?>
+                        <?php
+                        $hasil = $data_nilai->nilai/$data_max->max;
+                        $hasil_kali = $hasil*$data_kriteria->bobot;
+                        $hasil_normalisasi=$hasil_normalisasi+$hasil_kali;
+                    ?>
+                <?php } ?>
+                <?php }
+                ?>
+                <?php } } ?>
+                        <?php
+                        $hasil_rank['nilai'] = $hasil_normalisasi;
+                        $hasil_rank['alternatif'] = $data_alternatif->nama_peserta;
+                        array_push($hasil_ranks,$hasil_rank);
+                        $hasil_normalisasi; ?>
+            <?php } ?>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Hasil Rangking</h4>
+                        <p class="card-category"> Hasil urutan setelah dilakukan perhitungan</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th style="text-align: center;">Ranking</th>
+                                    <th style="text-align: center;">Nama Peserta</th>
+                                    <th style="text-align: center;">Nilai Akhir</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no=1;
+                                    rsort($hasil_ranks);
+                                    foreach ($hasil_ranks as $rank) { ?>
+                                    <tr>
+                                        <td>
+                                            <center><?php echo $no++ ?></center>
+                                        </td>
+                                        <td>
+                                            <center><?php echo $rank['alternatif']; ?></center>
+                                        </td>
+                                        <td>
+                                            <center><?php echo $rank['nilai']; ?></center>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+									
+			<?php } ?>
+
 		</div>
+	</div>
 	</div>
 
 	<!--   Core JS Files   -->
