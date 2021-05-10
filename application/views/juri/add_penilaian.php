@@ -81,9 +81,15 @@
                                             foreach($kriteria as $data_kriteria) {
                                         ?>
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">C<?=$data_kriteria->id_kriteria?></label>
-                                            <input type="hidden" name="id_kriteria[]" class="form-control" value="<?=$data_kriteria->id_kriteria?>">
-                                            <input type="text" name="nilai[]" class="form-control">
+                                            <label class="bmd-label-floating"><?=$data_kriteria->nama_kriteria?></label>
+                                            <input type="hidden" name="id_kriteria[]" required class="form-control" value="<?=$data_kriteria->id_kriteria?>">
+                                            <!-- <input type="text" name="nilai[]" class="form-control"> -->
+                                            <select name="nilai[]" class="form-control">
+                                                <option value="36">36</option>
+                                                <option value="37">37</option>
+                                                <option value="37.5">37.5</option>
+                                                <option value="38">38</option>
+                                            </select>
                                         </div>
                                         <?php } ?>
                                     </div>

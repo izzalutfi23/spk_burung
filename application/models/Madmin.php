@@ -128,4 +128,20 @@ class Madmin extends CI_Model {
         }
     }
 
+    // Post
+    public function get_post($id=null){
+        if($id!=null){
+            $this->db->where('id', $id);
+        }
+        return $this->db->get('post');
+    }
+
+    public function store_p($data){
+        $this->db->insert('post', $data);
+    }
+
+    public function del_p($id){
+        $this->db->where('id', $id);
+        $this->db->delete('post');
+    }
 }

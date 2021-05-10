@@ -9,6 +9,15 @@ class Home extends CI_Controller {
     }
 
     public function index(){
+        $post = $this->Madmin->get_post()->result();
+        $data = [
+            'title' => 'Post',
+            'post' => $post
+        ];
+        $this->load->view('utama', $data);
+    }
+
+    public function hasil(){
         $event = $this->Madmin->get_event()->result();
         $kriteria = $this->Madmin->get_kriteria()->result();
         $jml_kriteria = count($kriteria);
@@ -29,6 +38,15 @@ class Home extends CI_Controller {
             'users' => $users
         ];
         $this->load->view('home', $data);
+    }
+
+    public function detail($id){
+        $post = $this->Madmin->get_post($id)->row();
+        $data = [
+            'title' => 'Post',
+            'post' => $post
+        ];
+        $this->load->view('detail', $data);
     }
 
 }

@@ -73,6 +73,12 @@ The above copyright notice and this permission notice shall be included in all c
 							<p>User (Admin/Juri)</p>
 						</a>
 					</li>
+					<li class="nav-item <?=($this->uri->segment(2)=='post'?'active':'')?>">
+						<a class="nav-link" href="<?=base_url('admin/post')?>">
+							<i class="material-icons">speaker_notes</i>
+							<p>Post</p>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>

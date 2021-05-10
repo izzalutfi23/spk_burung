@@ -251,5 +251,52 @@ class Admin extends CI_Controller {
         $this->Madmin->del_u($id);
         redirect('admin/user');
     }
+
+    public function post(){
+        $post = $this->Madmin->get_post()->result();
+        $data = [
+            'title' => 'Post',
+            'post' => $post
+        ];
+        $this->load->view('admin/_header', $data);
+        $this->load->view('admin/post');
+        $this->load->view('admin/_footer');
+    }
+
+    public function post_create(){
+        $data = [
+            'title' => 'Tambah Post'
+        ];
+        $this->load->view('admin/_header', $data);
+        $this->load->view('admin/add_post');
+        $this->load->view('admin/_footer');
+    }
+
+    public function post_store(){
+        $config['upload_path']          = './assets/post';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 10000;
+        $config['max_width']            = 20480;
+        $config['max_height']           = 76800;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('foto')){
+            echo "Gagal upload file!!!";
+        }
+        else{
+            $data = [
+                'title' => $this->input->post('title'),
+                'foto' => $_FILES['foto']['name'],
+                'deskripsi' => $this->input->post('deskripsi')
+            ];
+            $this->Madmin->store_p($data);
+            redirect('admin/post');
+        }
+    }
     
+    public function del_post($id){
+        $this->Madmin->del_p($id);
+        redirect('admin/post');
+    }
 }

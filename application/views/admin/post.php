@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="javascript:;">Penilaian</a>
+                <a class="navbar-brand" href="javascript:;">Post</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -59,13 +59,11 @@
                         <div class="card-header card-header-primary">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h4 class="card-title ">Data Penilaian</h4>
-                                    <p class="card-category"> Ini adalah data penilaian alternatif beserta masing-masing
-                                        kriterianya</p>
+                                    <h4 class="card-title ">Data Post</h4>
+                                    <p class="card-category"> Ini adalah data post berita</p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <a href="<?=base_url('juri/create_penilaian/'.$this->uri->segment(3))?>"><button
-                                            class="btn btn-danger btn-sm float-right">Tambah</button></a>
+                                    <a href="<?=base_url('admin/post_create')?>"><button class="btn btn-danger btn-sm float-right">Tambah</button></a>
                                 </div>
                             </div>
                         </div>
@@ -73,45 +71,42 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th rowspan="2" style="text-align: center;">Kode</th>
-                                        <th rowspan="2">Peserta</th>
-                                        <th colspan="<?php echo $jml_kriteria+1; ?>" style="text-align: center;">
-                                            Kriteria</th>
-                                        <tr>
-                                            <?php
-                                                foreach($kriteria as $data_kriteria){
-                                            ?>
-                                            <th style="text-align: center;">
-                                                <?php echo $data_kriteria->nama_kriteria ?>
-                                            </th>
-                                            <?php } ?>
-                                            <th width="20%">Aksi</th>
+                                        <th>
+                                            No
+                                        </th>
+                                        <th>
+                                            Judul
+                                        </th>
+                                        <th>
+                                            Foto
+                                        </th>
+                                        <th>Deskripsi</th>
+                                        <th width="20%">Aksi</th>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach($peserta as $data_alternatif) {
+                                            $no=1;
+                                            foreach($post as $data){
                                         ?>
                                         <tr>
                                             <td>
-                                                <center>K<?php echo $data_alternatif->id_peserta ?></center>
+                                                <?php echo $no++; ?>
                                             </td>
-                                            <td><?=$data_alternatif->nama_peserta?></td>
-                                            <?php
-                                            $nilai = $this->db->query("SELECT * FROM nilai WHERE id_peserta='$data_alternatif->id_peserta'")->result();
-                                            foreach($nilai as $data_nilai) { ?>
                                             <td>
-                                                <center><?php echo $data_nilai->nilai ?></center>
+                                                <?php echo $data->title; ?>
                                             </td>
-
-                                            <?php } ?>
                                             <td>
-                                                <a onclick="return confirm('Data akan dihapus!')"
-                                                    href="<?=base_url('juri/del_nilai/'.$data_alternatif->id_peserta.'/'.$this->uri->segment(3))?>">
+                                                <img src="<?=base_url('assets/post/'.$data->foto)?>" width="150px">
+                                            </td>
+                                            <td>
+                                                <?php echo $data->deskripsi; ?>
+                                            </td>
+                                            <td>
+                                                <a onclick="return confirm('Data akan dihapus!')" href="<?=base_url('admin/del_post/'.$data->id)?>">
                                                     <button type="button" class="btn btn-danger btn-sm">Hapus</button>
                                                 </a>
                                             </td>
                                         </tr>
-
                                         <?php } ?>
                                     </tbody>
                                 </table>
