@@ -54,11 +54,11 @@
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row">
-                <?php
+				<?php
                     foreach($event as $data){
                 ?>
 				<div class="col-md-4">
-					<a href="<?=base_url('juri/penilaian/'.$data->id_event)?>">
+					<a href="<?=base_url('juri/hasil/'.$data->id_event)?>">
 						<div class="card card-chart">
 							<div class="card-body">
 								<h4 class="card-title">Event</h4>
@@ -72,8 +72,7 @@
 						</div>
 					</a>
 				</div>
-                <?php } ?>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
-

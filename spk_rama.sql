@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2021 at 05:42 PM
+-- Generation Time: Jun 01, 2021 at 06:43 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -41,7 +41,7 @@ CREATE TABLE `event` (
 INSERT INTO `event` (`id_event`, `id_user`, `nama_event`) VALUES
 (1, 2, 'Lomba Manuk'),
 (2, 3, 'Test Event'),
-(3, 2, 'Murai Batu A');
+(3, 2, 'Lomba Burung Emprit');
 
 -- --------------------------------------------------------
 
@@ -92,9 +92,9 @@ INSERT INTO `nilai` (`id_nilai`, `id_kriteria`, `id_peserta`, `nilai`) VALUES
 (25, 1, 2, 36),
 (26, 1, 2, 39),
 (27, 1, 2, 39),
-(29, 1, 6, 37),
-(30, 1, 6, 37.5),
-(31, 1, 6, 38);
+(28, 1, 6, 38),
+(29, 1, 6, 37.5),
+(30, 1, 6, 36);
 
 -- --------------------------------------------------------
 
@@ -118,7 +118,7 @@ INSERT INTO `peserta` (`id_peserta`, `id_event`, `nama_peserta`, `no_hp`, `nama_
 (1, 1, 'Izza', '089789878987', 'Manuk Doro'),
 (2, 2, 'Rama', '098765654543', 'Manuk Mpret'),
 (5, 2, 'Teguh', '09876543', 'Burung Ababil'),
-(6, 3, 'Teguh', '098765456789', 'Burung Ababil');
+(6, 3, 'Teguh', '08765467', 'Burung Teguh');
 
 -- --------------------------------------------------------
 
@@ -229,7 +229,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `id_nilai` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_nilai` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `peserta`
@@ -263,14 +263,14 @@ ALTER TABLE `event`
 -- Constraints for table `nilai`
 --
 ALTER TABLE `nilai`
-  ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`id_peserta`) REFERENCES `peserta` (`id_peserta`),
-  ADD CONSTRAINT `nilai_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`);
+  ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`id_peserta`) REFERENCES `peserta` (`id_peserta`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `nilai_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `peserta`
 --
 ALTER TABLE `peserta`
-  ADD CONSTRAINT `peserta_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `event` (`id_event`);
+  ADD CONSTRAINT `peserta_ibfk_1` FOREIGN KEY (`id_event`) REFERENCES `event` (`id_event`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

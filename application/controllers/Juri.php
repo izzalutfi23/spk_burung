@@ -47,10 +47,16 @@ class Juri extends CI_Controller {
     public function create_penilaian($id){
         $kriteria = $this->Madmin->get_kriteria()->result();
         $peserta = $this->Madmin->get_pesertan($id)->result();
+        $nilai = $this->db->get('nilai')->result();
+        $idnil = [];
+        foreach($nilai as $n){
+            array_push($idnil, $n->id_peserta);
+        }
         $data = [
             'title' => 'Penilaian',
             'kriteria' => $kriteria,
-            'peserta' => $peserta
+            'peserta' => $peserta,
+            'id_nil' => $idnil
         ];
         $this->load->view('juri/_header', $data);
         $this->load->view('juri/add_penilaian');
@@ -73,22 +79,47 @@ class Juri extends CI_Controller {
         redirect('juri/penilaian/'.$id_event);
     }
 
-    public function hasil(){
+    public function hasilevent()
+	{
+        $username = $this->session->userdata('user');
+        $user = $this->db->get_where('user', ['username'=>$username])->row();
+        $event = $this->Madmin->get_event_byiduser($user->id_user)->result();
+		$data = [
+            'title' => 'Hasil Lomba',
+            'event' => $event
+        ];
+
+        $this->load->view('juri/_header', $data);
+        $this->load->view('juri/hasil_event');
+        $this->load->view('juri/_footer');
+	}
+
+    public function hasil($id){
         $username = $this->session->userdata('user');
         $user = $this->db->get_where('user', ['username'=>$username])->row();
         $event = $this->Madmin->get_event_byiduser($user->id_user)->row();
 
         $kriteria = $this->Madmin->get_kriteria()->result();
-        $peserta = $this->Madmin->get_pesertan($event->id_event)->result();
+        $peserta = $this->Madmin->get_pesertan($id)->result();
         $jml_kriteria = count($kriteria);
         $data = [
             'title' => 'Penilaian',
             'kriterias' => $kriteria,
             'peserta' => $peserta,
-            'jml_kriteria' => $jml_kriteria
+            'jml_kriteria' => $jml_kriteria,
+            'event' => $event
         ];
         $this->load->view('juri/_header', $data);
         $this->load->view('juri/hasil');
         $this->load->view('juri/_footer');
+    }
+
+    public function cetak(){
+        $hasil = $this->input->post('hasil');
+        $data = [
+            'hasil' => json_decode($hasil),
+            'event' => $this->input->post('event')
+        ];
+        $this->load->view('juri/print', $data);
     }
 }

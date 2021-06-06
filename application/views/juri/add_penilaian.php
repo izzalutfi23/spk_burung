@@ -71,9 +71,10 @@
                                                 <option value="0">--Pilih--</option>
                                                 <?php
                                                     foreach($peserta as $data_alternatif) {
+                                                    if(!in_array($data_alternatif->id_peserta, $id_nil)){
                                                 ?>
                                                 <option value="<?=$data_alternatif->id_peserta?>"><?=$data_alternatif->nama_peserta?></option>
-                                                <?php } ?>
+                                                <?php }} ?>
                                             </select>
                                         </div>
                                         <?php

@@ -50,7 +50,7 @@ The above copyright notice and this permission notice shall be included in all c
 						</a>
 					</li>
 					<li class="nav-item ">
-						<a class="nav-link" href="<?=base_url('juri/hasil')?>">
+						<a class="nav-link" href="<?=base_url('juri/hasilevent')?>">
 							<i class="material-icons">list_alt</i>
 							<p>Hasil</p>
 						</a>
